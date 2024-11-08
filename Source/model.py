@@ -1,6 +1,8 @@
 from preperation import prepare_data
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import GridSearchCV
+import pickle as pk
 
 def build_model():
 
@@ -18,11 +20,10 @@ def build_model():
 
     #5. evaluate the model
     score = evaluate_model(rf, X_test, y_test)
+    print(f"Model score: {score}")
 
-    print(score)
-    #6. tune hyperparameters
-
-    #7. save the model in a config file
+    #6. save the model in a config file
+    save_model(rf)
 
 def get_X_y(data,
             col_X =['area', 
@@ -44,13 +45,21 @@ def split_train_test(X, y) :
     return X_train, X_test, y_train, y_test
 
 def train_model(X_train, y_train):
-    rf = RandomForestRegressor()
-    rf.fit(X_train, y_train)
 
-    return rf
+    grid_space = {'n_estimators': [100, 200, 300], 
+                  'max_depth': [3, 6, 9, 12]}
+    grid = GridSearchCV(RandomForestRegressor(), 
+                        param_grid=grid_space, 
+                        cv=5, scoring = 'r2')
+    
+    model_grid = grid.fit(X_train, y_train)
+
+    return model_grid.best_estimator_
 
 def evaluate_model(model, X_test, y_test):
     return model.score(X_test, y_test)
     
+def save_model(model):
+    pk.dump(model, open("Models/rf_v1", "wb"))
 
 build_model()
