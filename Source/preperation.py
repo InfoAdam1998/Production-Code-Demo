@@ -25,13 +25,11 @@ def encode_cat_cols(data):
                                         drop_first=True)
 
 def parse_garden_col(data):
-    for i in range(len(data)):
-        if data.garden[i]=='Not present':
-            data.garden[i]=0
-        else: 
-            data.garden[i] = int(re.findall(r'\d+', data.garden[i])[0])
+    
+    data['garden'] = data['garden'].apply(lambda x: 0 if x == 'Not present' else int(re.findall(r'\d+', x)[0]))
+
     return data
 
 
 df = prepare_data()
-print(df)
+print(df["garden"])
