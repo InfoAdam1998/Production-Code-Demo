@@ -24,8 +24,6 @@ def build_model():
 
     #7. save the model in a config file
 
-
-
 def get_X_y(data,
             col_X =['area', 
                   'constraction_year', 
