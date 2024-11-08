@@ -1,11 +1,11 @@
-import preperation as load_data
+from preperation import prepare_data
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 
 def build_model():
 
     #1. load preprocessed dataset
-    df = load_data()
+    df = prepare_data()
 
     #2. identify X and y
     X, y = get_X_y(df)
