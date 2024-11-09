@@ -25,17 +25,8 @@ def build_model():
     #6. save the model in a config file
     save_model(rf)
 
-def get_X_y(data,
-            col_X =['area', 
-                  'constraction_year', 
-                  'bedrooms', 
-                  'garden', 
-                  'balcony_yes', 
-                  'parking_yes', 
-                  'furnished_yes', 
-                  'garage_yes', 
-                  'storage_yes'],
-            col_y = "rent"):
+# Define functions for model building
+def get_X_y(data, col_X=['area', 'constraction_year', 'bedrooms', 'garden', 'balcony_yes', 'parking_yes', 'furnished_yes', 'garage_yes', 'storage_yes'], col_y="rent"):
     return data[col_X], data[col_y]
 
 def split_train_test(X, y) :
@@ -60,6 +51,4 @@ def evaluate_model(model, X_test, y_test):
     return model.score(X_test, y_test)
     
 def save_model(model):
-    pk.dump(model, open("Models/rf_v1", "wb"))
-
-build_model()
+    pk.dump(model, open("models/rf_v1", "wb"))

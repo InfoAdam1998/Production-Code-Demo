@@ -13,6 +13,7 @@ class ModelService:
 
     def load_model(self, model_name = "rf_v1"):
         model_path = Path(f"models/{model_name}")
+        print(model_path)
 
         if not model_path.exists():
             build_model()
@@ -22,7 +23,3 @@ class ModelService:
     def predict(self, input_parameters):
         return self.model.predict([input_parameters])
     
-ml_svc = ModelService()
-ml_svc.load_model("rf_v1")
-pred = ml_svc.predict([85, 2015, 2, 20, 1, 1, 0, 0, 1])
-print(pred)
